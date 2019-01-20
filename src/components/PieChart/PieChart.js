@@ -40,15 +40,15 @@ class PieChart extends React.Component {
             console.log(res);
             const populationDatas = res.data;
             let showM = [];
+            let showCountries = [];
             const updatedData = populationDatas.map(element => {
                 let maleData = element.males;
                 let femaleData = element.females;
                 let countries = element.country;
                 showM.push(maleData);
-           
-                
+                showCountries.push(countries);            
             });
-            // console.log(showM);
+            console.log(showCountries);
 
             let dataChart = this.state.dataChart;
             dataChart = new Chart('canvas', {
@@ -56,6 +56,7 @@ class PieChart extends React.Component {
                 data: {
                     datasets: [
                         {
+                            label: '# of showCountries',
                             data: showM,
                             backgroundColor: 'rgba(255, 99, 132, 0.6)',
                         }
@@ -83,7 +84,17 @@ class PieChart extends React.Component {
             <div className='chart'>
                 <Bar 
                  data={this.state.dataStore}
-                 options={{}}
+                 options={{
+                    title: {
+                        display: true,
+                        text: 'Largest Cities in Massachusetts',
+                        fontSize: 25
+                    },
+                    legend: {
+                        display: true,
+                        position: 'right'
+                    }
+                 }}
                 />
                 <canvas
                     style={{ width: 800, height: 300 }}
